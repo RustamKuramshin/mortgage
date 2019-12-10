@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: app_db
+    ports:
+      - "5400:5432"
+    restart: always
+    environment:
+      - POSTGRES_DB=trucksdb
+      - POSTGRES_USER=trucksdb
+      - POSTGRES_PASSWORD=trucksdb
