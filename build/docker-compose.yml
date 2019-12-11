@@ -5,9 +5,9 @@ services:
     image: postgres:latest
     container_name: app_db
     ports:
-      - "5400:5432"
+      - "${postgres_port}:5432"
     restart: always
     environment:
-      - POSTGRES_DB=trucksdb
-      - POSTGRES_USER=trucksdb
-      - POSTGRES_PASSWORD=trucksdb
+      - POSTGRES_DB=${postgres_db}
+      - POSTGRES_USER=${postgres_user}
+      - POSTGRES_PASSWORD=${postgres_password}
