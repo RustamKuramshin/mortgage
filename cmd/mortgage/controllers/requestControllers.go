@@ -33,3 +33,14 @@ var GetStatusByRequestId = func(w http.ResponseWriter, r *http.Request) {
 	u.Respond(w, http.StatusOK, mr)
 
 }
+
+var GetRequests = func(w http.ResponseWriter, r *http.Request) {
+
+	requests := models.GetRequests()
+	if requests == nil {
+		u.Respond(w, http.StatusNotFound, u.ErrorMessage("error requests founding"))
+	}
+
+	u.Respond(w, http.StatusOK, requests)
+
+}

@@ -19,3 +19,8 @@ GET /request/3285acd5-6dd5-437c-9fae-9309925446f1
 Host: localhost:8000
 
 ###
+
+GET /request
+Host: localhost:8000
+
+###

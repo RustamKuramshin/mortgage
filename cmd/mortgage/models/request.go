@@ -101,3 +101,16 @@ func GetStatusByRequestId(id string) *RequestResponse {
 
 	return &RequestResponse{Id: request.ID.String(), StatusCode: request.StatusCode}
 }
+
+func GetRequests() []*Request {
+
+	requests := make([]*Request, 0)
+
+	err := GetDB().Table("requests").Find(&requests).Error
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+
+	return requests
+}
