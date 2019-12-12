@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	"mortgage/cmd/mortgage/background"
 	"mortgage/cmd/mortgage/controllers"
 	"net/http"
 	"os"
@@ -21,6 +22,8 @@ func main() {
 	}
 
 	fmt.Println(port)
+
+	background.StartBackgroundTasks()
 
 	err := http.ListenAndServe(":"+port, router)
 	if err != nil {

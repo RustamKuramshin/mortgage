@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
+	"mortgage/cmd/mortgage/common"
 	"mortgage/cmd/mortgage/models"
 	u "mortgage/cmd/mortgage/utils"
 	"net/http"
@@ -10,13 +11,12 @@ import (
 
 var CreateRequest = func(w http.ResponseWriter, r *http.Request) {
 
-	request := &models.Request{}
+	request := &common.Request{}
 	err := json.NewDecoder(r.Body).Decode(request)
 	if err != nil {
 		u.Respond(w, http.StatusBadRequest, u.ErrorMessage("Error request decode"))
 	}
 
-	request.StatusCode = "processing"
 	resp := request.Create()
 	u.Respond(w, http.StatusCreated, resp)
 

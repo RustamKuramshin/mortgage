@@ -13,7 +13,9 @@ func ErrorMessage(message string) map[string]interface{} {
 func Respond(w http.ResponseWriter, statusCode int, data interface{}) {
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
-	json.NewEncoder(w).Encode(data)
+	if data != nil {
+		json.NewEncoder(w).Encode(data)
+	}
 }
 
 func MatchString(pattern, s string) bool {
