@@ -36,6 +36,7 @@ type Request struct {
 	MiddleName string `json:"middlename"`
 	Phone      string `json:"phone"`
 	Email      string `json:"email"`
+	StatusCode string `json:"status_code"`
 }
 
 type MortgageRequestResponse struct {
@@ -86,7 +87,7 @@ func (r *Request) Create() interface{} {
 
 	GetDB().Create(r)
 
-	return RequestResponse{Id: r.ID.String(), StatusCode: "processing"}
+	return RequestResponse{Id: r.ID.String(), StatusCode: r.StatusCode}
 }
 
 func GetStatusByRequestId(id string) *RequestResponse {
@@ -98,5 +99,5 @@ func GetStatusByRequestId(id string) *RequestResponse {
 		return nil
 	}
 
-	return &RequestResponse{Id: request.ID.String(), StatusCode: ""}
+	return &RequestResponse{Id: request.ID.String(), StatusCode: request.StatusCode}
 }

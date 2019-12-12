@@ -16,12 +16,13 @@ var CreateRequest = func(w http.ResponseWriter, r *http.Request) {
 		u.Respond(w, http.StatusBadRequest, u.ErrorMessage("Error request decode"))
 	}
 
+	request.StatusCode = "processing"
 	resp := request.Create()
 	u.Respond(w, http.StatusCreated, resp)
 
 }
 
-var GetRequestById = func(w http.ResponseWriter, r *http.Request) {
+var GetStatusByRequestId = func(w http.ResponseWriter, r *http.Request) {
 
 	id := mux.Vars(r)["id"]
 	mr := models.GetStatusByRequestId(id)
