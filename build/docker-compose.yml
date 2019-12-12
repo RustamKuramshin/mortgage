@@ -3,11 +3,9 @@ version: '3'
 services:
   db:
     image: postgres:latest
-    container_name: app_db
+    container_name: mortgage_db
     ports:
-      - "${postgres_port}:5432"
+      - "15432:5432"
     restart: always
-    environment:
-      - POSTGRES_DB=${postgres_db}
-      - POSTGRES_USER=${postgres_user}
-      - POSTGRES_PASSWORD=${postgres_password}
+    env_file:
+      - ../.env

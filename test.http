@@ -1,0 +1,16 @@
+POST /request
+Host: localhost:8000
+Content-Type: application/json
+
+{
+  "firstname": "Ivan",
+  "lastname": "Petrov",
+  "middlename": "Petrovich",
+  "phone": "+79091234567",
+  "email": "ivan@mail.ru"
+}
+
+<> 2019-12-12T122557.201.json
+<> 2019-12-12T122352.201.json
+
+###

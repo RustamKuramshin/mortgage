@@ -17,9 +17,9 @@ func init() {
 		fmt.Print(e)
 	}
 
-	username := os.Getenv("postgres_user")
-	password := os.Getenv("postgres_password")
-	dbName := os.Getenv("postgres_db")
+	username := os.Getenv("POSTGRES_USER")
+	password := os.Getenv("POSTGRES_PASSWORD")
+	dbName := os.Getenv("POSTGRES_DB")
 	dbHost := os.Getenv("postgres_host")
 	dbPort := os.Getenv("postgres_port")
 

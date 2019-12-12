@@ -2,18 +2,34 @@ package models
 
 import (
 	"github.com/jinzhu/gorm"
+	"github.com/satori/go.uuid"
 	u "mortgage/cmd/mortgage/utils"
 	"regexp"
 	"strings"
+	"time"
 )
+
+type BaseModel struct {
+	ID        uuid.UUID `gorm:"type:uuid;primary_key;"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time
+}
+
+func (bm *BaseModel) BeforeCreate(scope *gorm.Scope) error {
+	uuid, err := uuid.NewV4()
+	if err != nil {
+		return err
+	}
+	return scope.SetColumn("ID", uuid)
+}
 
 type MortgageRequest struct {
 	Request *Request `json:"request"`
 }
 
 type Request struct {
-	gorm.Model
-	Id         string `json:"omitempty"`
+	BaseModel
 	FirstName  string `json:"firstname"`
 	LastName   string `json:"lastname"`
 	MiddleName string `json:"middlename"`
@@ -69,5 +85,5 @@ func (r *Request) Create() interface{} {
 
 	GetDB().Create(r)
 
-	return RequestResponse{Id: r.ID, StatusCode: ""}
+	return RequestResponse{Id: r.ID.String(), StatusCode: ""}
 }
