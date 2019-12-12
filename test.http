@@ -14,3 +14,8 @@ Content-Type: application/json
 <> 2019-12-12T122352.201.json
 
 ###
+
+GET /request/fc1bab1b-bc6e-418f-afc1-7fbde299e537
+Host: localhost:8000
+
+###

@@ -12,6 +12,7 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/request", controllers.CreateRequest).Methods("POST")
+	router.HandleFunc("/request/{id}", controllers.GetRequestById).Methods("GET")
 
 	port := os.Getenv("PORT")
 	if port == "" {

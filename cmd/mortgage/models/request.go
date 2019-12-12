@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
 	"github.com/satori/go.uuid"
 	u "mortgage/cmd/mortgage/utils"
@@ -85,5 +86,17 @@ func (r *Request) Create() interface{} {
 
 	GetDB().Create(r)
 
-	return RequestResponse{Id: r.ID.String(), StatusCode: ""}
+	return RequestResponse{Id: r.ID.String(), StatusCode: "processing"}
+}
+
+func GetStatusByRequestId(id string) *RequestResponse {
+
+	request := new(Request)
+	err := GetDB().Table("requests").Where("id = ?", id).Find(request).Error
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+
+	return &RequestResponse{Id: request.ID.String(), StatusCode: ""}
 }
