@@ -3,7 +3,7 @@ Host: localhost:8000
 Content-Type: application/json
 
 {
-  "firstname": "Pavel",
+  "firstname": "Petr",
   "lastname": "Petrov",
   "middlename": "Petrovich",
   "phone": "+79091234567",

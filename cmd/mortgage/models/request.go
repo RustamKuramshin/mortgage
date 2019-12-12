@@ -11,10 +11,10 @@ import (
 )
 
 type BaseModel struct {
-	ID        uuid.UUID `gorm:"type:uuid;primary_key;"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt *time.Time
+	ID        uuid.UUID  `gorm:"type:uuid;primary_key;" json:"id"`
+	CreatedAt time.Time  `json:"-"`
+	UpdatedAt time.Time  `json:"-"`
+	DeletedAt *time.Time `json:"-"`
 }
 
 func (bm *BaseModel) BeforeCreate(scope *gorm.Scope) error {
