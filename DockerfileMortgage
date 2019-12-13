@@ -2,9 +2,9 @@ FROM golang:latest
 
 LABEL maintainer="Kuramshin Rustam <kuramshin.py@yandex.ru>"
 
-WORKDIR /go/src/mortgage
+WORKDIR /go/src/mortgage/cmd/mortgage
 
-ADD ./cmd ./cmd/
+COPY ./cmd/mortgage ./
 
 ENV GOPATH /go
 
@@ -13,8 +13,4 @@ RUN apt-get update \
     && go get -d -v ./... \
     && go install -v ./...
 
-EXPOSE 8000
-
 CMD [ "go", "run", "main.go" ]
-
-

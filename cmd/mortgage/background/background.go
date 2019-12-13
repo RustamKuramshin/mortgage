@@ -8,11 +8,14 @@ import (
 	"mortgage/cmd/mortgage/common"
 	c "mortgage/cmd/mortgage/concurrent"
 	"net/http"
+	"os"
+	"strconv"
 	"time"
 )
 
 func sendMortgageRequest() {
-	for range time.Tick(time.Duration(1) * time.Second) {
+	rps, _ := strconv.Atoi(os.Getenv("BANK_SEND_REQUEST_RPS"))
+	for range time.Tick(time.Duration(rps) * time.Second) {
 		if !c.RequestsQueue.IsEmpty() {
 
 			request := c.RequestsQueue.Peek()
@@ -21,8 +24,11 @@ func sendMortgageRequest() {
 			if err != nil {
 				continue
 			}
-			resp, err := http.Post("http://localhost:9000/request", "application/json", bytes.NewBuffer(reqBody))
+
+			url := os.Getenv("BANK_SEND_REQUEST_URL")
+			resp, err := http.Post(url, "application/json", bytes.NewBuffer(reqBody))
 			if err != nil {
+				log.Println(fmt.Sprintf("POST %s", url))
 				log.Println("bank api not available")
 				continue
 			}
@@ -48,12 +54,15 @@ func sendMortgageRequest() {
 }
 
 func checkStatusesRequests() {
-	for range time.Tick(time.Duration(1) * time.Second) {
+	rps, _ := strconv.Atoi(os.Getenv("BANK_CHECK_STATUS_RPS"))
+	for range time.Tick(time.Duration(rps) * time.Second) {
 		if !c.StatusesQueue.IsEmpty() {
 			requestId := c.StatusesQueue.Peek()
 
-			resp, err := http.Get(fmt.Sprintf("http://localhost:9000/request/%s", requestId))
+			url := fmt.Sprintf("%s/%s", os.Getenv("BANK_CHECK_STATUS_URL"), requestId)
+			resp, err := http.Get(url)
 			if err != nil {
+				log.Println(fmt.Sprintf("GET %s", url))
 				log.Println("bank api not available")
 				continue
 			}

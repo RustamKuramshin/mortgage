@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	"log"
 	"mortgage/cmd/mortgage/background"
 	"mortgage/cmd/mortgage/controllers"
 	"net/http"
@@ -17,14 +18,10 @@ func main() {
 	router.HandleFunc("/request/{id}", controllers.GetStatusByRequestId).Methods("GET")
 
 	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8000"
-	}
-
-	fmt.Println(port)
 
 	background.StartBackgroundTasks()
 
+	log.Println(fmt.Sprintf("Backend strated. Port listen %s", port))
 	err := http.ListenAndServe(":"+port, router)
 	if err != nil {
 		fmt.Print(err)

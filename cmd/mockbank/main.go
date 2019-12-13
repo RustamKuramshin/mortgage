@@ -18,12 +18,8 @@ func main() {
 	router.HandleFunc("/request/{id}", GetStatusByRequestId).Methods("GET")
 
 	port := os.Getenv("PORT")
-	if port == "" {
-		port = "9000"
-	}
 
-	fmt.Println(port)
-
+	log.Println(fmt.Sprintf("Mock bank strated. Port listen %s", port))
 	err := http.ListenAndServe(":"+port, router)
 	if err != nil {
 		fmt.Print(err)

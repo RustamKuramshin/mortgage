@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  mortgage:
+    build:
+      context: .
+      dockerfile: ./DockerfileMortgage
+    restart: always
+    container_name: mortgage_backend
+    ports:
+      - "8000:8000"
+    tty: true
+    environment:
+      - PORT=8000
+      - POSTGRES_DB=mortgage
+      - POSTGRES_USER=mortgage
+      - POSTGRES_PASSWORD=mortgage
+      - postgres_host=db
+      - postgres_port=5432
+      - BANK_SEND_REQUEST_URL=http://mockbank:9000/request
+      - BANK_SEND_REQUEST_RPS=1
+      - BANK_CHECK_STATUS_URL=http://mockbank:9000/request
+      - BANK_CHECK_STATUS_RPS=1
+    depends_on:
+      - db
+      - mockbank
+  mockbank:
+    build:
+      context: .
+      dockerfile: ./DockerfileMockBank
+    restart: always
+    container_name: mockbank_backend
+    ports:
+      - "9000:9000"
+    tty: true
+    environment:
+      - PORT=9000
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: mortgage_db
+    ports:
+      - "15432:5432"
+    restart: always
+    environment:
+      - POSTGRES_DB=mortgage
+      - POSTGRES_USER=mortgage
+      - POSTGRES_PASSWORD=mortgage
