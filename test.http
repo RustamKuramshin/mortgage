@@ -3,19 +3,16 @@ Host: localhost:8000
 Content-Type: application/json
 
 {
-  "firstname": "Petr",
+  "firstname": "Leo",
   "lastname": "Petrov",
   "middlename": "Petrovich",
   "phone": "+79091234567",
   "email": "ivan@mail.ru"
 }
 
-<> 2019-12-12T122557.201.json
-<> 2019-12-12T122352.201.json
-
 ###
 
-GET /request/0ba3473c-be5b-4668-a178-b18aaf451954
+GET /request/61b5d31f-68f2-438c-b0bf-26244d8f963b
 Host: localhost:8000
 
 ###
